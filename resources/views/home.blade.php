@@ -1,17 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.backend.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
+    <div class="contentwrapper">
+        <!--Content wrapper-->
+        <div class="heading">
+            <!--  .heading-->
+            <h3>Blank page</h3>
         </div>
+        <!-- End  / heading-->
+        <!-- Start .row -->
+        <div class="row">
+        </div>
+        <!-- End .row -->
     </div>
-</div>
+    <!-- End contentwrapper -->
 @endsection

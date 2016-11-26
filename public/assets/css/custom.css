@@ -1,0 +1,9 @@
+/* -----------------------------------------
+   Custom.css - put your own changes here 
+----------------------------------------- */
+.status-item {
+    font-size: 11px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 20px !important;
+}

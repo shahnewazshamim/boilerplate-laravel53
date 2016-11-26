@@ -18,3 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::post('/dashboard/logout', 'Auth\\LoginController@logout');
+
+    /* Preference Module */
+    Route::get('/preference/site', 'Admin\\PreferenceController@index');
+
+});
