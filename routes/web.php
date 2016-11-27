@@ -25,5 +25,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     /* Preference Module */
     Route::get('/preference/site', 'Admin\\PreferenceController@index');
+    Route::post('/preference/site', 'Admin\\PreferenceController@update');
 
 });

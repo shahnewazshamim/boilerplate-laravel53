@@ -25,13 +25,14 @@
                 <div class="mainnav">
                     <ul>
                         <li>
-                            <a href=""><i class="s16 icomoon-icon-screen-2"></i><span class="txt">Dashboard</span></a>
+                            <a href="{{ url('home') }}"><i class="s16 icomoon-icon-screen-2"></i><span class="txt">Dashboard</span></a>
                         </li>
                         <li>
                             <a href="#"><i class="s16 icomoon-icon-stats-up"></i><span class="txt">Access Control</span></a>
                             <ul class="sub">
                                 <li>
-                                    <a href=""><i class="s16 icomoon-icon-arrow-right-3"></i><span class="txt">Flot charts</span></a>
+                                    <a href="{{ url('access/role') }}"><i class="s16 icomoon-icon-arrow-right-3"></i><span class="txt">Manage Role</span></a>
+                                    <a href="{{ url('access/permission') }}"><i class="s16 icomoon-icon-arrow-right-3"></i><span class="txt">Manage Permission</span></a>
                                 </li>
                             </ul>
                         </li>

@@ -2,7 +2,7 @@
     <nav class="navbar navbar-default" role="navigation">
         <div class="navbar-header">
             <a class="navbar-brand" href="index.html">
-                Admin.<span class="slogan">panel</span>
+                {{ get_option('site-name') }}.<span class="slogan">{{ get_option('tag-line') }}</span>
             </a>
         </div>
         <div id="navbar-no-collapse" class="navbar-no-collapse">
@@ -15,15 +15,14 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="s16 icomoon-icon-cog-2"></i><span class="txt"> Settings</span>
+                        <i class="s16 icomoon-icon-cog-2"></i>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu left dropdown-form">
                         <li class="menu">
                             <ul role="menu">
-                                <li><strong>Application</strong></li>
                                 <li>
-                                    <a href="{{ url('preference/site') }}"><i class="s16 icomoon-icon-blog"></i>Site Settings</a>
+                                    <a href="{{ url('preference/site') }}"><i class="s16 icomoon-icon-blog"></i>Site Preference</a>
                                 </li>
                             </ul>
                         </li>
@@ -34,7 +33,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown">
                         <img src="{{ asset('assets/img/avatar.jpg') }}" alt="" class="image"/>
-                        <span class="txt">Md. Shamim Shahnewaz</span>
+                        <span class="txt">{{ auth()->user()->name }}</span>
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu right">
@@ -44,7 +43,7 @@
                                     <a href="#"><i class="s16 icomoon-icon-user-plus"></i>My Account</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class="s16 icomoon-icon-bubble-2"></i>Change Password</a>
+                                    <a href="#"><i class="s16 icomoon-icon-lock-3"></i>Password</a>
                                 </li>
                                 <li>
                                     <a href="#"><i class="s16 icomoon-icon-lock"></i>Lock Screen</a>

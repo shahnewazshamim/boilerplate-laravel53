@@ -1,7 +1,7 @@
 <div id="footer" class="clearfix sidebar-page right-sidebar-page">
     <!-- Start #footer  -->
     <p class="pull-left">
-        <?php echo get_option('footer')->value; ?>
+        <?php echo get_option('footer-text'); ?>
     </p>
     <p class="pull-right">
         <a href="#" class="mr5">Terms of use</a>

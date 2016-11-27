@@ -1,6 +1,6 @@
 <head>
     <meta charset="utf-8">
-    <title>Web Boilerplate</title>
+    <title>{{ get_option('site-name') }} | {{ get_option('tag-line') }}</title>
     <!-- Mobile specific metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Force IE9 to render in normal mode -->

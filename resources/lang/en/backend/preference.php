@@ -1,49 +1,42 @@
 <?php
 
 return [
-    'page' => [
+    'page'    => [
         'title' => 'Site Preferences',
     ],
-    'form' => [
+    'section' => [
+        'title' => 'General',
+    ],
+    'form'    => [
         'label'       => [
-            'site'   => 'Site Name',
-            'footer' => 'Footer Text',
+            'site-name'        => 'Site Name',
+            'tag-line'         => 'Tag Line',
+            'site-logo'        => 'Site Logo',
+            'site-logo-mobile' => 'Mobile Version',
+            'logo-text'        => 'Enable Text logo',
+            'site-lang'        => 'Default Language',
+            'footer-text'      => 'Copyright Text',
+            'per-page'         => 'Deals/Coupons Per Page',
+            'home-page-limit'  => 'Deals/Coupons Home Page Limit',
+            'carousel'         => 'Enable Home Page Carousel',
         ],
         'placeholder' => [
-            'name'       => 'Enter Designation Name',
-            'short_name' => 'Enter Short Name',
+            'site-name'        => 'Enter Site Name',
+            'tag-line'         => 'Enter Tag Line',
+            'site-logo'        => 'Upload Logo',
+            'site-logo-mobile' => 'Upload Logo',
+            'logo-text'        => 'If OFF default Image logo will be appear on site.',
+            'site-lang'        => 'Select Default Language',
+            'footer-text'      => 'Footer Copyright Text',
+            'per-page'         => 'Set Deals/Coupons Per Page',
+            'home-page-limit'  => 'Set Deals/Coupons Home Page Limit',
+            'carousel'         => 'If OFF no carousel would be appear on home page.',
+        ],
+        'button'      => [
+            'submit' => 'Save',
         ],
     ],
-
-    'add' => [
-        'success' => 'Designation add successful',
-        'error'   => 'Designation add failed',
+    'update'  => [
+        'success' => 'Settings update successful!',
     ],
-
-    'edit' => [
-        'success' => 'Designation update successful',
-        'error'   => 'Designation update failed',
-    ],
-
-    'delete' => [
-        'success' => 'Designation delete successful',
-        'error'   => 'Designation delete failed',
-        'confirm' => 'Are you sure to delete selected row(s)',
-    ],
-
-    'button' => [
-        'submit' => 'Save',
-        'clear'  => 'Cancel',
-        'add'    => 'Add',
-        'edit'   => 'Edit',
-        'delete' => 'Delete',
-    ],
-
-    'grid' => [
-        'column' => [
-            'name'       => 'Designation Name',
-            'short_name' => 'Short Name',
-        ],
-    ],
-
 ];
