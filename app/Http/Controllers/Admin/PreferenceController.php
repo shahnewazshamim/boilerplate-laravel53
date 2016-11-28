@@ -29,16 +29,20 @@ class PreferenceController extends Controller
      */
     public function update(Request $request)
     {
-        $fields   = array();
-        $validate = array();
+        $fields     = array();
+        $validate   = array();
+        $checkboxes = array('logo-text', 'carousel');
 
         foreach ($request->all() as $key => $value) {
             if ($key == '_token') continue;
             $validate[$key] = 'required';
             $fields[$key]   = $value;
         }
-        if (!array_key_exists('logo-text', $fields)) {
-            $fields['logo-text'] = FALSE;
+
+        foreach ($checkboxes as $checkbox) {
+            if (!array_key_exists($checkbox, $fields)) {
+                $fields[$checkbox] = 'disable';
+            }
         }
 
         $this->validate($request, $validate);
@@ -47,7 +51,8 @@ class PreferenceController extends Controller
             foreach ($fields as $key => $value) {
                 update_option($key, $value);
             }
-            $flash = set_flash_message(trans('backend\\preference.update.success'), 'success');
+
+            $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'preference.update.success'), 'success');
         } catch (\Exception $e) {
             $flash = set_flash_message($e->getMessage(), 'warning');
         }

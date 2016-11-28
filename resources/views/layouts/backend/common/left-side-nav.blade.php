@@ -44,7 +44,7 @@
                 <h6 class="title">Application Status</h6>
                 <div class="content clearfix  status-item text-muted">
                     <span class="pull-left">Laravel</span>
-                    <span class="percent pull-right">{{ app()::VERSION }}</span>
+                    <span class="percent pull-right">{{ app()->version() }}</span>
                 </div>
                 <div class="content clearfix  status-item text-muted">
                     <span class="pull-left">jQuery</span>

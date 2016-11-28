@@ -41,4 +41,4 @@
 <script src="{{ asset('assets/plugins/forms/maxlength/bootstrap-maxlength.js') }}"></script>
 <script src="{{ asset('assets/plugins/forms/checkall/jquery.checkAll.js') }}"></script>
 <script src="{{ asset('assets/js/pages/forms-basic.js') }}"></script>
-<script src="{{ asset('assets/js/pages/notifications.js') }}"></script>
+<script src="{{ asset('assets/js/application.js') }}"></script>
