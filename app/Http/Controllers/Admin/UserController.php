@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\Role;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class RoleController extends Controller
+class UserController extends Controller
 {
     /**
      * Rows Per page.
@@ -45,16 +46,16 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $results = Role::orderBy($this->sort, $this->order)->paginate($this->per_page);
-        $total   = Role::all()->count();
+        $results = User::orderBy($this->sort, $this->order)->paginate($this->per_page);
+        $total   = User::all()->count();
 
         $data = array(
             'results' => $results,
             'total'   => $total,
-            'columns' => array('name', 'display_name', 'description', 'action'),
+            'columns' => array('name', 'email', 'action'),
         );
 
-        return view('backend.role.index', $data);
+        return view('backend.user.index', $data);
     }
 
     /**
@@ -64,7 +65,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('backend.role.index');
+        return view('backend.user.create');
     }
 
     /**
@@ -76,22 +77,21 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $fields   = array();
-        $validate = array();
-
-        foreach ($request->all() as $key => $value) {
-            if ($key == '_token') continue;
-            $validate[$key] = 'required';
-            $fields[$key]   = $value;
-        }
+        $validate = array(
+            'name'     => 'required|max:255',
+            'email'    => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+        );
 
         $this->validate($request, $validate);
 
         try {
-            $object = new Role();
-            foreach ($fields as $key => $value) {
-                $object->$key = $value;
-            }
+            $object = new User();
+
+            $object->name     = $request->name;
+            $object->email    = $request->email;
+            $object->password = bcrypt($request->password);
+
             if ($object->save()) {
                 $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.add.success'), 'success');
             } else {
@@ -103,7 +103,7 @@ class RoleController extends Controller
 
         session_set_flash($flash);
 
-        return redirect('access/role');
+        return redirect('user/create');
     }
 
     /**
@@ -127,18 +127,15 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $results = Role::orderBy($this->sort, $this->order)->paginate($this->per_page);
-        $result  = Role::find($id);
-        $total   = Role::all()->count();
+        $result  = User::find($id);
+        $total   = User::all()->count();
 
         $data = array(
-            'results' => $results,
             'result'  => $result,
             'total'   => $total,
-            'columns' => array('name', 'display_name', 'description', 'action'),
         );
 
-        return view('backend.role.index', $data);
+        return view('backend.user.create', $data);
     }
 
     /**
@@ -151,22 +148,21 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $fields   = array();
-        $validate = array();
-
-        foreach ($request->all() as $key => $value) {
-            if ($key == '_token') continue;
-            $validate[$key] = 'required';
-            $fields[$key]   = $value;
-        }
+        $validate = array(
+            'name'     => 'required|max:255',
+            'email'    => 'required|email|max:255|unique:users',
+            'password' => 'required|min:6|confirmed',
+        );
 
         $this->validate($request, $validate);
 
         try {
-            $object = Role::find($id);
-            foreach ($fields as $key => $value) {
-                $object->$key = $value;
-            }
+            $object = User::find($id);
+
+            $object->name     = $request->name;
+            $object->email    = $request->email;
+            $object->password = bcrypt($request->password);
+
             if ($object->save()) {
                 $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.edit.success'), 'success');
             } else {
@@ -178,7 +174,7 @@ class RoleController extends Controller
 
         session_set_flash($flash);
 
-        return redirect('access/role');
+        return redirect('user/create');
     }
 
     /**

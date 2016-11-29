@@ -7,7 +7,15 @@
     margin-bottom: 10px;
     padding-left: 20px !important;
 }
-
 .text-white {
     color: #fff !important;
+}
+.pagination > li > a, .pagination > li > span {
+    margin-left: 0 !important;
+}
+.pagination-block {
+    margin-bottom: -28px;
+}
+.counter-block {
+    margin-top: 5px;
 }

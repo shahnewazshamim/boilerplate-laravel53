@@ -28,6 +28,11 @@ function changeImage() {
 
 $(document).ready(function () {
 
+    $('#update_password').change(function () {
+
+        $("input:password").removeAttr('disabled');
+    });
+
     /*******************************************************************************************************************
      * Form validation and Change Image for all form of this project
      ******************************************************************************************************************/

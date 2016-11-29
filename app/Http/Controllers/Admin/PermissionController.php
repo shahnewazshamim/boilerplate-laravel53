@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\Role;
+use App\Model\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class RoleController extends Controller
+class PermissionController extends Controller
 {
     /**
      * Rows Per page.
@@ -30,7 +30,7 @@ class RoleController extends Controller
     private $order;
 
     /**
-     * RoleController constructor.
+     * PermissionController constructor.
      */
     public function __construct()
     {
@@ -45,8 +45,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $results = Role::orderBy($this->sort, $this->order)->paginate($this->per_page);
-        $total   = Role::all()->count();
+        $results = Permission::orderBy($this->sort, $this->order)->paginate($this->per_page);
+        $total   = Permission::all()->count();
 
         $data = array(
             'results' => $results,
@@ -54,7 +54,7 @@ class RoleController extends Controller
             'columns' => array('name', 'display_name', 'description', 'action'),
         );
 
-        return view('backend.role.index', $data);
+        return view('backend.permission.index', $data);
     }
 
     /**
@@ -64,7 +64,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('backend.role.index');
+        return view('backend.permission.index');
     }
 
     /**
@@ -88,14 +88,14 @@ class RoleController extends Controller
         $this->validate($request, $validate);
 
         try {
-            $object = new Role();
+            $object = new Permission();
             foreach ($fields as $key => $value) {
                 $object->$key = $value;
             }
             if ($object->save()) {
-                $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.add.success'), 'success');
+                $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'permission.add.success'), 'success');
             } else {
-                $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.add.error'), 'danger');
+                $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'permission.add.error'), 'danger');
             }
         } catch (\Exception $e) {
             $flash = set_flash_message($e->getMessage(), 'warning');
@@ -103,7 +103,7 @@ class RoleController extends Controller
 
         session_set_flash($flash);
 
-        return redirect('access/role');
+        return redirect('access/permission');
     }
 
     /**
@@ -127,9 +127,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $results = Role::orderBy($this->sort, $this->order)->paginate($this->per_page);
-        $result  = Role::find($id);
-        $total   = Role::all()->count();
+        $results = Permission::orderBy($this->sort, $this->order)->paginate($this->per_page);
+        $result  = Permission::find($id);
+        $total   = Permission::all()->count();
 
         $data = array(
             'results' => $results,
@@ -138,7 +138,7 @@ class RoleController extends Controller
             'columns' => array('name', 'display_name', 'description', 'action'),
         );
 
-        return view('backend.role.index', $data);
+        return view('backend.permission.index', $data);
     }
 
     /**
@@ -163,14 +163,14 @@ class RoleController extends Controller
         $this->validate($request, $validate);
 
         try {
-            $object = Role::find($id);
+            $object = Permission::find($id);
             foreach ($fields as $key => $value) {
                 $object->$key = $value;
             }
             if ($object->save()) {
-                $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.edit.success'), 'success');
+                $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'permission.edit.success'), 'success');
             } else {
-                $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.edit.error'), 'danger');
+                $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'permission.edit.error'), 'danger');
             }
         } catch (\Exception $e) {
             $flash = set_flash_message($e->getMessage(), 'warning');
@@ -178,7 +178,7 @@ class RoleController extends Controller
 
         session_set_flash($flash);
 
-        return redirect('access/role');
+        return redirect('access/permission');
     }
 
     /**
@@ -193,9 +193,9 @@ class RoleController extends Controller
         try {
             $ids = explode(',', $id);
             foreach ($ids as $id) {
-                Role::where('id', $id)->forceDelete();
+                Permission::where('id', $id)->forceDelete();
             }
-            $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.edit.success'), 'success');
+            $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'permission.edit.success'), 'success');
         } catch (\Exception $e) {
             $flash = set_flash_message($e->getMessage(), 'warning');
         }

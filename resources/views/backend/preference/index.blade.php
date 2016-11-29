@@ -99,9 +99,21 @@
                             <div class="form-group{{ $errors->has('default-pagination') ? ' has-error' : '' }}">
                                 <label class="col-lg-2 col-md-3 control-label" for="default-pagination">{{ trans('backend'.DIRECTORY_SEPARATOR.'preference.form.label.default-pagination') }}</label>
                                 <div class="col-lg-10 col-md-9">
-                                    <input type="number" id="home-page-limit" name="default-pagination" class="form-control" value="{{ get_option('default-pagination') }}" placeholder="{{ trans('backend'.DIRECTORY_SEPARATOR.'preference.form.placeholder.default-pagination') }}">
+                                    <input type="number" id="default-pagination" name="default-pagination" class="form-control" value="{{ get_option('default-pagination') }}" placeholder="{{ trans('backend'.DIRECTORY_SEPARATOR.'preference.form.placeholder.default-pagination') }}">
                                     @if ($errors->has('default-pagination'))
                                         <span class="help-block text-danger">{{ $errors->first('default-pagination')}}</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group{{ $errors->has('default-order') ? ' has-error' : '' }}">
+                                <label class="col-lg-2 col-md-3 control-label" for="default-order">{{ trans('backend'.DIRECTORY_SEPARATOR.'preference.form.label.default-order') }}</label>
+                                <div class="col-lg-10 col-md-9">
+                                    <select id="default-order" name="default-order" class="form-control">
+                                        <option value="asc" {{ selected('asc', get_option('default-order')) }}>Ascending</option>
+                                        <option value="desc" {{ selected('desc', get_option('default-order')) }}>Descending</option>
+                                    </select>
+                                    @if ($errors->has('default-order'))
+                                        <span class="help-block text-danger">{{ $errors->first('default-order')}}</span>
                                     @endif
                                 </div>
                             </div>

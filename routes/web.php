@@ -28,17 +28,26 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/preference/site', 'Admin\\PreferenceController@update');
 
     /* Role - Access Control Module */
-    Route::get('/access/role', 'Admin\\RoleController@index');
-
-    //Route::get('/access/role/create', 'Admin\\RoleController@create');
-    Route::post('/access/role', 'Admin\\RoleController@store');
-
+    Route::get('/access/roles', 'Admin\\RoleController@index');
+    Route::post('/access/roles', 'Admin\\RoleController@store');
     Route::get('/access/role/edit/{id}', 'Admin\\RoleController@edit');
-    Route::post('/access/role/update/{id}', 'Admin\\RoleController@update');
-
-    Route::get('/access/role/remove/{id}', 'Admin\\RoleController@remove');
-    Route::get('/access/role/trash', 'Admin\\RoleController@trash');
-    Route::get('/access/role/restore/{id}', 'Admin\\RoleController@restore');
+    Route::post('/access/role/edit/{id}', 'Admin\\RoleController@update');
     Route::get('/access/role/delete/{id}', 'Admin\\RoleController@destroy');
+
+    /* Permission - Access Control Module */
+    Route::get('/access/permissions', 'Admin\\PermissionController@index');
+    Route::post('/access/permissions', 'Admin\\PermissionController@store');
+    Route::get('/access/permission/edit/{id}', 'Admin\\PermissionController@edit');
+    Route::post('/access/permission/edit/{id}', 'Admin\\PermissionController@update');
+    Route::get('/access/permission/delete/{id}', 'Admin\\PermissionController@destroy');
+
+    /* User Module */
+    Route::get('/users', 'Admin\\UserController@index');
+    Route::get('/user/create', 'Admin\\UserController@create');
+    Route::post('/user/create', 'Admin\\UserController@store');
+    Route::get('/user/edit/{id}', 'Admin\\UserController@edit');
+    Route::post('/user/edit/{id}', 'Admin\\UserController@update');
+
+    Route::get('/user/delete/{id}', 'Admin\\UserController@destroy');
 
 });

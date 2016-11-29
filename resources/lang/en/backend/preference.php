@@ -20,6 +20,7 @@ return [
             'home-page-limit'    => 'Deals/Coupons Home Page Limit',
             'carousel'           => 'Enable Home Page Carousel',
             'default-pagination' => 'Default Grid Pagination',
+            'default-order'      => 'Default Order',
         ],
         'placeholder' => [
             'site-name'          => 'Enter Site Name',
@@ -33,6 +34,7 @@ return [
             'home-page-limit'    => 'Set Deals/Coupons Home Page Limit',
             'carousel'           => 'If OFF no carousel would be appear on home page.',
             'default-pagination' => 'Enter Default Grid Pagination Limit',
+            'default-order'      => 'Select Default Order',
         ],
         'button'      => [
             'submit' => 'Save',

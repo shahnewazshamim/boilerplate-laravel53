@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 
 class PreferenceController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +17,6 @@ class PreferenceController extends Controller
     {
         return view('backend.preference.index');
     }
-
 
     /**
      * Update the specified resource in storage.

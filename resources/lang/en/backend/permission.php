@@ -2,21 +2,21 @@
 
 return [
     'page'    => [
-        'title' => 'Role Manager',
+        'title' => 'Permission Manager',
     ],
     'section' => [
-        'title' => 'List of Roles',
+        'title' => 'List of Permissions',
     ],
     'form'    => [
-        'title' => 'Add New Role',
+        'title' => 'Add New Permission',
         'label'       => [
             'name'         => 'Name',
             'display_name' => 'Display Name',
             'description'  => 'Description',
         ],
         'placeholder' => [
-            'name'         => 'Enter Role Name',
-            'display_name' => 'Enter Role Display Name',
+            'name'         => 'Enter Permission Name',
+            'display_name' => 'Enter Permission Display Name',
             'description'  => 'Short Description',
         ],
         'button'      => [
