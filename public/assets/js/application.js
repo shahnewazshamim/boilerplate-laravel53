@@ -28,9 +28,10 @@ function changeImage() {
 
 $(document).ready(function () {
 
-    $('#update_password').change(function () {
 
-        $("input:password").removeAttr('disabled');
+
+    $('#update_password').on('change', function () {
+        $('#password').attr('disabled', !$(this).attr('checked'));
     });
 
     /*******************************************************************************************************************

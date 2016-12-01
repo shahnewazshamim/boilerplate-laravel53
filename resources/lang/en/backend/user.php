@@ -15,6 +15,7 @@ return [
             'password'              => 'Password',
             'password_confirmation' => 'Confirm Password',
             'update_password'       => 'Update Password ?',
+            'assigned_roles'        => 'Assigned Roles',
         ],
         'placeholder' => [
             'name'                  => 'Enter Full Name',

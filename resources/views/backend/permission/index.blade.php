@@ -20,7 +20,7 @@
                         <h4 class="panel-title">{{ trans('backend'.DIRECTORY_SEPARATOR.'permission.form.title') }}</h4>
                     </div>
                     <div class="panel-body pt0 pb0">
-                        <form class="form-horizontal group-border stripped" action="@if(isset($result->id)){{ url("access/permission/edit/$result->id") }}@else{{ url('access/permission') }}@endif" method="post">
+                        <form class="form-horizontal group-border stripped" action="@if(isset($result->id)){{ url("access/permission/edit/$result->id") }}@else{{ url('access/permissions') }}@endif" method="post">
                             {{ csrf_field() }}
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label class="col-lg-2 col-md-3 control-label" for="name">{{ trans('backend'.DIRECTORY_SEPARATOR.'permission.form.label.name') }}</label>

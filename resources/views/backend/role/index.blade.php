@@ -20,7 +20,7 @@
                         <h4 class="panel-title">{{ trans('backend'.DIRECTORY_SEPARATOR.'role.form.title') }}</h4>
                     </div>
                     <div class="panel-body pt0 pb0">
-                        <form class="form-horizontal group-border stripped" action="@if(isset($result->id)){{ url("access/role/edit/$result->id") }}@else{{ url('access/role') }}@endif" method="post">
+                        <form class="form-horizontal group-border stripped" action="@if(isset($result->id)){{ url("access/role/edit/$result->id") }}@else{{ url('access/roles') }}@endif" method="post">
                             {{ csrf_field() }}
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label class="col-lg-2 col-md-3 control-label" for="name">{{ trans('backend'.DIRECTORY_SEPARATOR.'role.form.label.name') }}</label>
@@ -44,10 +44,39 @@
                                 <label class="col-lg-2 col-md-3 control-label" for="description">{{ trans('backend'.DIRECTORY_SEPARATOR.'role.form.label.description') }}</label>
                                 <div class="col-lg-10 col-md-9">
                                     <textarea id="description" name="description" class="form-control" placeholder="{{ trans('backend'.DIRECTORY_SEPARATOR.'role.form.placeholder.description') }}">@if(isset($result->description)){{$result->description}}@else{{old('description')}}@endif</textarea>
-
                                     @if ($errors->has('description'))
                                         <span class="help-block text-danger">{{ $errors->first('description')}}</span>
                                     @endif
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-3 control-label" for="description">{{ trans('backend'.DIRECTORY_SEPARATOR.'role.form.label.modules') }}</label>
+                                <div class="col-lg-10 col-md-9">
+                                    <div class="col-lg-10 col-md-9">
+                                        @foreach($modules as $module)
+                                            <div class="toggle-custom">
+                                                <label class="toggle" data-on="ON" data-off="OFF">
+                                                    <input type="checkbox" id="module-{{ $module->id }}" name="" value="{{ $module->name }}" {{ checked('', $module->name) }}>
+                                                    <span class="button-checkbox"></span>
+                                                </label>
+                                                <label for="module-{{ $module->id }}">{{ $module->name }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-3 control-label" for="description">{{ trans('backend'.DIRECTORY_SEPARATOR.'role.form.label.actions') }}</label>
+                                <div class="col-lg-10 col-md-9">
+                                    @foreach($permissions as $permission)
+                                        <div class="toggle-custom toggle-inline">
+                                            <label class="toggle" data-on="YES" data-off="NO">
+                                                <input type="checkbox" id="permission-{{ $permission->id }}" name="permissions[]" value="{{ $permission->id }}" {{ set_checked($permission->id, $current, 'permission_id') }}>
+                                                <span class="button-checkbox"></span>
+                                            </label>
+                                            <label for="permission-{{ $permission->id }}">{{ $permission->display_name }}</label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="form-group">

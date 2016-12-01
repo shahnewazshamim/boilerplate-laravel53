@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\AssignRole;
 use App\Model\Role;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -65,7 +67,14 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('backend.user.create');
+        $roles   = Role::all();
+        $current = [];
+        $data    = array(
+            'roles'   => $roles,
+            'current' => $current,
+        );
+
+        return view('backend.user.create', $data);
     }
 
     /**
@@ -80,7 +89,7 @@ class UserController extends Controller
         $validate = array(
             'name'     => 'required|max:255',
             'email'    => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6',
         );
 
         $this->validate($request, $validate);
@@ -127,10 +136,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $result  = User::find($id);
-        $total   = User::all()->count();
+        $roles    = Role::all();
+        $assigned = AssignRole::where('user_id', $id)->get();
+
+        $result = User::find($id);
+        $total  = User::all()->count();
 
         $data = array(
+            'roles'   => $roles,
+            'assigned' => $assigned,
             'result'  => $result,
             'total'   => $total,
         );
@@ -149,21 +163,27 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $validate = array(
-            'name'     => 'required|max:255',
-            'email'    => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'name'  => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users,id,' . $id,
+            'password' => 'required|min:6',
         );
 
         $this->validate($request, $validate);
 
         try {
-            $object = User::find($id);
+            $object = User::where('id', $id)->first();
 
-            $object->name     = $request->name;
-            $object->email    = $request->email;
+            $object->name  = $request->name;
+            $object->email = $request->email;
             $object->password = bcrypt($request->password);
 
             if ($object->save()) {
+                foreach ($request->roles as $key => $value) {
+                    $assign          = new AssignRole();
+                    $assign->user_id = $object->id;
+                    $assign->role_id = $value;
+                    $assign->save();
+                }
                 $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.edit.success'), 'success');
             } else {
                 $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.edit.error'), 'danger');

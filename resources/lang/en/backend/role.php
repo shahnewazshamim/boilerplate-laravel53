@@ -8,11 +8,13 @@ return [
         'title' => 'List of Roles',
     ],
     'form'    => [
-        'title' => 'Add New Role',
+        'title'       => 'Add New Role',
         'label'       => [
             'name'         => 'Name',
             'display_name' => 'Display Name',
             'description'  => 'Description',
+            'modules'      => 'Assign Modules',
+            'actions'      => 'Set Ability',
         ],
         'placeholder' => [
             'name'         => 'Enter Role Name',
@@ -23,27 +25,27 @@ return [
             'submit' => 'Save',
         ],
     ],
-    'grid' => [
-        'columns' => [
-            'actions' => 'Actions'
+    'grid'    => [
+        'columns'  => [
+            'actions' => 'Actions',
         ],
-        'button'      => [
-            'edit' => 'Edit',
+        'button'   => [
+            'edit'   => 'Edit',
             'delete' => 'Delete',
         ],
         'counting' => 'Showing :offset to :limit of :total Items.',
         'noresult' => 'No result found.',
     ],
-    'add'  => [
+    'add'     => [
         'success' => 'Save successful!',
-        'error' => 'Save failed!',
+        'error'   => 'Save failed!',
     ],
-    'edit'  => [
+    'edit'    => [
         'success' => 'Update successful!',
-        'error' => 'Update failed!',
+        'error'   => 'Update failed!',
     ],
     'delete'  => [
         'success' => 'Delete successful!',
-        'error' => 'Delete failed!',
+        'error'   => 'Delete failed!',
     ],
 ];

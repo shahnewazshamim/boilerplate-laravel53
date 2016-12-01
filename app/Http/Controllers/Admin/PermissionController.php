@@ -103,7 +103,7 @@ class PermissionController extends Controller
 
         session_set_flash($flash);
 
-        return redirect('access/permission');
+        return redirect('access/permissions');
     }
 
     /**
@@ -178,7 +178,7 @@ class PermissionController extends Controller
 
         session_set_flash($flash);
 
-        return redirect('access/permission');
+        return redirect('access/permissions');
     }
 
     /**

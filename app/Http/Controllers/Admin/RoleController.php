@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Model\AssignPermission;
+use App\Model\Modules;
+use App\Model\Permission;
 use App\Model\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -45,13 +49,19 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $permissions = Permission::all();
+        $modules     = Modules::where('parent_id', NULL)->get();
+        $current     = [];
+
         $results = Role::orderBy($this->sort, $this->order)->paginate($this->per_page);
         $total   = Role::all()->count();
-
-        $data = array(
-            'results' => $results,
-            'total'   => $total,
-            'columns' => array('name', 'display_name', 'description', 'action'),
+        $data    = array(
+            'permissions' => $permissions,
+            'modules'     => $modules,
+            'current'     => $current,
+            'results'     => $results,
+            'total'       => $total,
+            'columns'     => array('name', 'display_name', 'description', 'action'),
         );
 
         return view('backend.role.index', $data);
@@ -81,6 +91,7 @@ class RoleController extends Controller
 
         foreach ($request->all() as $key => $value) {
             if ($key == '_token') continue;
+            if ($key == 'permissions') continue;
             $validate[$key] = 'required';
             $fields[$key]   = $value;
         }
@@ -93,6 +104,9 @@ class RoleController extends Controller
                 $object->$key = $value;
             }
             if ($object->save()) {
+                foreach ($request->permissions as $key => $value) {
+                    $object->attachPermission($value);
+                }
                 $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.add.success'), 'success');
             } else {
                 $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.add.error'), 'danger');
@@ -103,7 +117,7 @@ class RoleController extends Controller
 
         session_set_flash($flash);
 
-        return redirect('access/role');
+        return redirect('access/roles');
     }
 
     /**
@@ -127,15 +141,22 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        $permissions = Permission::all();
+        $current     = DB::table("permission_role")->where("permission_role.role_id", $id)->get();
+        $modules     = Modules::where('parent_id', NULL)->get();
+
         $results = Role::orderBy($this->sort, $this->order)->paginate($this->per_page);
         $result  = Role::find($id);
         $total   = Role::all()->count();
 
         $data = array(
-            'results' => $results,
-            'result'  => $result,
-            'total'   => $total,
-            'columns' => array('name', 'display_name', 'description', 'action'),
+            'permissions' => $permissions,
+            'modules'     => $modules,
+            'current'     => $current->toArray(),
+            'results'     => $results,
+            'result'      => $result,
+            'total'       => $total,
+            'columns'     => array('name', 'display_name', 'description', 'action'),
         );
 
         return view('backend.role.index', $data);
@@ -156,6 +177,7 @@ class RoleController extends Controller
 
         foreach ($request->all() as $key => $value) {
             if ($key == '_token') continue;
+            if ($key == 'permissions') continue;
             $validate[$key] = 'required';
             $fields[$key]   = $value;
         }
@@ -168,6 +190,12 @@ class RoleController extends Controller
                 $object->$key = $value;
             }
             if ($object->save()) {
+                foreach ($request->permissions as $key => $value) {
+                    $assign = new AssignPermission();
+                    $assign->permission_id = $value;
+                    $assign->role_id = $object->id;
+                    $assign->save();
+                }
                 $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.edit.success'), 'success');
             } else {
                 $flash = set_flash_message(trans('backend' . DIRECTORY_SEPARATOR . 'role.edit.error'), 'danger');
@@ -178,7 +206,7 @@ class RoleController extends Controller
 
         session_set_flash($flash);
 
-        return redirect('access/role');
+        return redirect('access/roles');
     }
 
     /**

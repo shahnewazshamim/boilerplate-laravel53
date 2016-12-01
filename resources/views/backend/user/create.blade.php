@@ -40,35 +40,38 @@
                                     @endif
                                 </div>
                             </div>
-                            @if(isset($result->id))
-                            <div class="form-group">
-                                <label class="col-lg-2 col-md-3 control-label" for="update_password">{{ trans('backend'.DIRECTORY_SEPARATOR.'user.form.label.update_password') }}</label>
-                                <div class="col-lg-10 col-md-9">
-                                    <div class="toggle-custom">
-                                        <label class="toggle" data-on="ON" data-off="OFF">
-                                            <input type="checkbox" id="update_password" value="1">
-                                            <span class="button-checkbox"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label class="col-lg-2 col-md-3 control-label" for="password">{{ trans('backend'.DIRECTORY_SEPARATOR.'user.form.label.password') }}</label>
                                 <div class="col-lg-10 col-md-9">
                                     <input type="password" id="password" name="password" {{isset($result->id) ? 'disabled' : ''}} class="form-control" value="@if(isset($result->password)){{$result->password}}@else{{old('password')}}@endif" placeholder="{{ trans('backend'.DIRECTORY_SEPARATOR.'user.form.placeholder.password') }}">
+                                    @if(isset($result->id))
+                                        <div class="toggle-custom toggle-inline">
+                                            <label class="checkbox" data-on="ON" data-off="OFF">
+                                                <input type="checkbox">
+                                                <span class="button-checkbox"></span>
+                                            </label>
+                                            <label for=""> Update</label>
+                                        </div>
+                                    @endif
                                     @if ($errors->has('password'))
                                         <span class="help-block text-danger">{{ $errors->first('password')}}</span>
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                <label class="col-lg-2 col-md-3 control-label" for="password_confirmation">{{ trans('backend'.DIRECTORY_SEPARATOR.'user.form.label.password_confirmation') }}</label>
+                            <div class="form-group">
+                                <label class="col-lg-2 col-md-3 control-label" for="assigned">{{ trans('backend'.DIRECTORY_SEPARATOR.'user.form.label.assigned_roles') }}</label>
                                 <div class="col-lg-10 col-md-9">
-                                    <input type="password" id="password_confirmation" name="password_confirmation" {{isset($result->id) ? 'disabled' : ''}} class="form-control" value="@if(isset($result->password)){{$result->password}}@else{{old('password_confirmation')}}@endif" placeholder="{{ trans('backend'.DIRECTORY_SEPARATOR.'user.form.placeholder.password_confirmation') }}">
-                                    @if ($errors->has('password_confirmation'))
-                                        <span class="help-block text-danger">{{ $errors->first('password_confirmation')}}</span>
-                                    @endif
+                                    <div class="col-lg-10 col-md-9">
+                                        @foreach($roles as $role)
+                                            <div class="toggle-custom">
+                                                <label class="toggle" data-on="ON" data-off="OFF">
+                                                    <input type="checkbox" id="role-{{ $role->id }}" name="roles[]" value="{{ $role->id }}" {{ set_checked($role->id, $assigned, 'role_id') }}>
+                                                    <span class="button-checkbox"></span>
+                                                </label>
+                                                <label for="role-{{ $role->id }}">{{ $role->display_name }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">

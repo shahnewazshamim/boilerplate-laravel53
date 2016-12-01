@@ -1,6 +1,7 @@
 <?php
 
 use App\Model\Option;
+use App\Model\Modules;
 
 if (!function_exists('get_option')) {
     /**
@@ -98,6 +99,28 @@ if (!function_exists('checked')) {
     }
 }
 
+if (!function_exists('set_checked')) {
+    /**
+     * Return checked status for selected items.
+     *
+     * @param $current
+     * @param $checked
+     *
+     * @return string
+     */
+    function set_checked($current, $object, $key)
+    {   //dd($object);
+        $status = '';
+        foreach($object as $k => $v) {
+            if($current == $v->$key) {
+                $status = 'checked';
+            }
+        }
+
+        return $status;
+    }
+}
+
 if (!function_exists('selected')) {
     /**
      * Return selected status for selected items.
@@ -146,7 +169,7 @@ if (!function_exists('render_grid')) {
      */
     function render_grid($columns, $results, $url)
     {
-        if(count($results) > 0) {
+        if (count($results) > 0) {
             $grid = '<table class="table table-hover">';
             $grid .= "<thead>";
             $grid .= "<tr>";
@@ -196,7 +219,7 @@ if (!function_exists('render_pagination')) {
         $limit  = (($results->currentpage() - 1) * $results->perpage()) + $results->count();
         $offset = ($results->currentpage() - 1) * $results->perpage() + 1;
 
-        if(count($results) > 0) {
+        if (count($results) > 0) {
             if ($total < get_option('default-pagination')) {
                 $pagination = '<div class="pull-right pagination-block">';
                 $pagination .= '<ul class="pagination pagination-sm">';
@@ -217,5 +240,45 @@ if (!function_exists('render_pagination')) {
         } else {
             echo '';
         }
+    }
+}
+
+if (!function_exists('render_navigation')) {
+    /**
+     * Render Navigation with sub-modules.
+     *
+     * @return string
+     */
+    function render_navigation()
+    {
+        $navigation = '';
+        $modules    = Modules::where('parent_id', NULL)->get();
+        foreach ($modules as $module) {
+            $navigation .= '<li><a href="#"><i class="' . $module->icon . '"></i><span class="txt">' . $module->name . '</span></a>';
+            $navigation .= render_sub_navigation($module->id);
+            $navigation .= '</li>';
+        }
+
+        return $navigation;
+    }
+}
+
+if (!function_exists('render_sub_navigation')) {
+    /**
+     * Render Sub Navigation.
+     *
+     * @return string
+     */
+    function render_sub_navigation($parent_id)
+    {
+        $sub_navigation = '';
+        $sub_modules    = Modules::where('parent_id', $parent_id)->get();
+        $sub_navigation .= '<ul class="sub">';
+        foreach ($sub_modules as $sub_module) {
+            $sub_navigation .= '<li><a href="' . url($sub_module->url) . '"><i class="' . $sub_module->icon . '"></i><span class="txt">' . $sub_module->name . '</span></a>';
+        }
+        $sub_navigation .= '</ul>';
+
+        return $sub_navigation;
     }
 }

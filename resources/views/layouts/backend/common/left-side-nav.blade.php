@@ -27,24 +27,7 @@
                         <li>
                             <a href="{{ url('home') }}"><i class="s16 icomoon-icon-screen-2"></i><span class="txt">Dashboard</span></a>
                         </li>
-                        <li>
-                            <a href="#"><i class="s16 icomoon-icon-accessibility"></i><span class="txt">Access Control</span></a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{ url('access/roles') }}"><i class="s16 icomoon-icon-arrow-right-3"></i><span class="txt">Manage Role</span></a>
-                                    <a href="{{ url('access/permissions') }}"><i class="s16 icomoon-icon-arrow-right-3"></i><span class="txt">Manage Permission</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#"><i class="s16 icomoon-icon-users"></i><span class="txt">User Manager</span></a>
-                            <ul class="sub">
-                                <li>
-                                    <a href="{{ url('user/create') }}"><i class="s16 icomoon-icon-arrow-right-3"></i><span class="txt">Add User</span></a>
-                                    <a href="{{ url('users') }}"><i class="s16 icomoon-icon-arrow-right-3"></i><span class="txt">Manage Users</span></a>
-                                </li>
-                            </ul>
-                        </li>
+                        {!! render_navigation() !!}
                     </ul>
                 </div>
             </div>
